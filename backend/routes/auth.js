@@ -13,6 +13,7 @@ router.post('/createuser', [
     body('email', 'Enter a valid Email.').isEmail(),
     body('password', 'Password length should be 5 characters minimum.').isLength({ min: 5 }),
 ], async (req, res) => {
+    let success = false;
     //If there are no errors, run this and create a user.
     try {
         const result = validationResult(req);
@@ -42,14 +43,15 @@ router.post('/createuser', [
                     id: user.id
                 }
             }
+            success = true;
             var authtoken = jwt.sign(data, JWT_SECRET);
-            res.json({ authtoken });
+            res.json({ success, authtoken });
             //using JWT to auithenticate ends here
 
         }
         else {
             //incase errors occur
-            return res.status(400).json({ errors: result.array() });
+            return res.status(400).json({ success, errors: result.array() });
         }
     } catch (error) {
         console.log({ error: error.message });
@@ -63,6 +65,7 @@ router.post('/login', [
     body('email', 'Enter a valid Email.').isEmail(),
     body('password', 'Password should not be empty!').exists(),
 ], async (req, res) => {
+    let success = false;
     //If there are no errors, run this and LOGIN a user.
     try {
         const errors = validationResult(req);
@@ -88,7 +91,8 @@ router.post('/login', [
                     }
                 }
                 var authtoken = jwt.sign(data, JWT_SECRET);
-                res.json({ authtoken });
+                success = true;
+                res.json({ success, authtoken });
             }
         }
         else {

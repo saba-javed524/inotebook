@@ -1,10 +1,12 @@
 //Entry point =>
 const connectToMongo = require('./db');
 const express = require('express')
+var cors = require('cors')
 
 connectToMongo(); //connecting to mongo
 
 const app = express()
+app.use(cors())
 const port = 5000
 
 app.use(express.json())
