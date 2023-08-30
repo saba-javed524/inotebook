@@ -9,7 +9,6 @@ const Notes = (props) => {
     const { notes, fetchAllNotes, editNote } = noteContext;
     const navigate = useNavigate();
 
-
     useEffect(() => {
         if (localStorage.getItem('token')) {
             fetchAllNotes();
@@ -79,7 +78,7 @@ const Notes = (props) => {
             <div className='row my-3 text-center'>
                 <h3>All my Notes:</h3>
                 {/* use && when there is no else and you only want tp check one condition */}
-                {Notes.length === 0 && <h6 className='text-center'>No Notes to display!</h6>}
+                {notes.length === 0 && <h5 className='text-center my-1'>No Notes to display!</h5>}
                 {
                     notes.map((note) => {
                         return <Noteitem key={note._id} note={note} updateNote={updateNote} showAlert={props.showAlert} />

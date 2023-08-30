@@ -5,6 +5,7 @@ const NoteState = (props) => {
     const host = "http://localhost:5000"
     const initalNotes = []
     const [notes, setNotes] = useState(initalNotes);
+    let [numberOfNotes, setNumberOfNotes] = useState(notes.length);
 
     //Fetch Data
     const fetchAllNotes = async () => {
@@ -19,6 +20,12 @@ const NoteState = (props) => {
         });
         const json = await response.json();
         setNotes(json);
+
+    }
+
+    const getNumberOfNotes = async () => {
+        fetchAllNotes();
+        setNumberOfNotes(notes.length);
     }
 
     const addNote = async (title, description, tag) => {
@@ -91,7 +98,7 @@ const NoteState = (props) => {
 
 
     return (
-        <NoteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchAllNotes }}>
+        <NoteContext.Provider value={{ notes, addNote, editNote, deleteNote, fetchAllNotes, numberOfNotes, getNumberOfNotes }}>
             {props.children}
         </NoteContext.Provider>
     )

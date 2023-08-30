@@ -37,6 +37,7 @@ const Navbar = () => {
                         <Link type="button" to="/signup" className="btn btn-primary mx-1">Signup</Link>
                     </form> :
                         <div className="p-2">
+                            <Link to="/profile"><i className="fa-regular fa-user mx-3" style={{ color: "white" }}></i></Link>
                             <button onClick={handleLogout} type="button" className="btn btn-primary mx-1">Logout</button>
                         </div>}
                 </div>
